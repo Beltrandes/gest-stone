@@ -1,0 +1,23 @@
+@import "../../../../assets/styles/colors.scss";
+
+.navbar {
+  background-color: lighten($color: $oxford-blue, $amount: 20);
+  .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    .navbar-brand {
+      color: white;
+      font-size: 1.4rem;
+      letter-spacing: -0.1rem;
+    }
+    .navbar-nav {
+      .nav-item {
+        .nav-link {
+          color: $bone;
+          font-weight: 600;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

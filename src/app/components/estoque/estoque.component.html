@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="mb-4">
+    <list-control title="Estoque" iconText="boxes"></list-control>
+  </div>
+  <div class="content container p-0">
+    <div
+      class="btn-group b d-flex w-50 m-auto mb-4"
+      role="group"
+      aria-label="Basic example"
+    >
+      <button
+        type="button"
+        (click)="changeViewType()"
+        class="btn btn-secondary"
+        [ngClass]="{ active: listViewType === 'stocks' }"
+      >
+        Itens
+      </button>
+      <button
+        type="button"
+        (click)="changeViewType()"
+        class="btn btn-secondary"
+        [ngClass]="{ active: listViewType === 'movements' }"
+      >
+        Movimentos
+      </button>
+    </div>
+    @if (listViewType === 'stocks') {
+    <stock-list></stock-list>
+    } @if (listViewType === 'movements') {
+    <stock-movement-list></stock-movement-list>
+    }
+  </div>
+</div>

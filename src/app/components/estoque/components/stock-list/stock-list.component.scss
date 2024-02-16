@@ -1,0 +1,25 @@
+@import "../../../../../assets/styles/colors.scss";
+
+.container {
+  .card {
+    .card-body {
+      .table {
+        tbody {
+          tr {
+            .minQuantity {
+              color: rgb(216, 141, 3);
+            }
+            .actions {
+              button {
+                background-color: $asparagus;
+                width: 30%;
+                border: none;
+                border-radius: 100px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

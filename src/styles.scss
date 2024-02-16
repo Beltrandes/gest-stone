@@ -6,3 +6,23 @@
   box-sizing: border-box;
   font-family: 'Lato', sans-serif;
 }
+
+body {
+  height: 100vh;
+}
+
+$oxford-blue: #0a122aff;
+$asparagus: #698f3fff;
+$seasalt: #fbfaf8ff;
+$bone: #e7decdff;
+
+
+$theme-colors: (
+  "primary":    $oxford-blue,
+  "secondary":  $asparagus,
+);
+
+
+$body-bg: $seasalt;
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";

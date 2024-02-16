@@ -1,0 +1,41 @@
+<div class="container p-0">
+  @for (stock of stocks; track stock.id) {
+  <div class="card w-100 mb-4">
+    <div class="card-body">
+      <h4 class="card-title">{{ stock.name }}</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Qtde.</th>
+            <th scope="col">Item</th>
+            <th scope="col">Detalhe</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of stock.stockItems; track item.id) {
+          <tr>
+            <th
+              [ngClass]="{ minQuantity: item.quantity < item.minQuantity }"
+              scope="row"
+            >
+              {{ item.quantity }}
+              @if (item.quantity < item.minQuantity) {
+              <i class="bi bi-exclamation-circle"></i>
+              }
+            </th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.details }}</td>
+            <td class="actions d-flex justify-content-between">
+              <button><i class="bi bi-plus-slash-minus"></i></button>
+              <button><i class="bi bi-pencil"></i></button>
+              <button><i class="bi bi-trash3"></i></button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
+</div>

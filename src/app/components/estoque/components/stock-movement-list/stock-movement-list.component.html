@@ -1,0 +1,61 @@
+<div class="container p-0">
+  <div class="card w-100 mb-4">
+    <div class="card-body">
+      <h4 class="card-title">
+        Saídas
+        <i class="bi bi-box-arrow-up-right"></i>
+      </h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Funcionário</th>
+            <th scope="col">Item</th>
+            <th scope="col">Qtde. inicial</th>
+            <th scope="col">Qtde. retirada</th>
+            <th scope="col">Estoque</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (stockOut of stockOuts; track stockOut.id) {
+          <tr>
+            <th scope="row">{{ stockOut.employee.name }}</th>
+            <td>{{ stockOut.stockItem.name }} ({{stockOut.stockItem.details}})</td>
+            <td>{{ stockOut.previousQuantity }}</td>
+            <td>{{ stockOut.withdrawnQuantity }}</td>
+            <td>{{stockOut.stock.name}}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card w-100 mb-4">
+    <div class="card-body">
+      <h4 class="card-title">
+        Entradas
+        <i class="bi bi-box-arrow-in-up-right"></i>
+
+      </h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Qtde. inicial</th>
+            <th scope="col">Qtde. adicionada</th>
+            <th scope="col">Estoque</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (stockEntry of stockEntries; track stockEntry.id) {
+          <tr>
+            <th scope="row">{{ stockEntry.stockItem.name }} ({{stockEntry.stockItem.details}})</th>
+            <td>{{ stockEntry.previousQuantity }}</td>
+            <td>{{ stockEntry.addedQuantity }}</td>
+            <td>{{stockEntry.stock.name}}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
