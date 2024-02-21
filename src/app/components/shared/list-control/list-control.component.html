@@ -1,10 +1,28 @@
 <div class="container p-0">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-body">
-      <h3 class="card-title">
-        {{title}}
-        <i class="bi bi-{{iconText}}"></i>
+      <h3 class="card-title mb-3">
+        {{ title }}
+        <i class="bi bi-{{ iconText }}"></i>
       </h3>
+      <div class="card-content">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder="pesquisa "
+          />
+          <label for="floatingInput">Pesquisar</label>
+        </div>
+        <button
+          (click)="openForm(title)"
+          class="btn d-flex gap-2 justify-content-center align-items-center"
+        >
+          <i class="bi bi-plus-circle fs-6"></i>
+          {{ btnText }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

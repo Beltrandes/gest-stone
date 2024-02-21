@@ -4,17 +4,49 @@
   .card {
     .card-body {
       .table {
+        thead {
+          tr {
+            th {
+              text-align: center;
+              &:first-of-type {
+                width: 10%;
+              }
+              &:last-of-type {
+                width: 12%;
+              }
+            }
+          }
+        }
         tbody {
           tr {
+            th {
+              text-align: center;
+            }
+            td {
+              text-align: center;
+            }
             .minQuantity {
               color: rgb(216, 141, 3);
             }
+            .outStock {
+              color: rgb(255, 0, 0);
+            }
             .actions {
+              gap: .4rem;
+              input {
+                border: 1px solid $oxford-blue;
+                &:focus {
+                  box-shadow: 0px 0px 5px $oxford-blue;
+                  border-color: rgb(228, 228, 228);
+                }
+              }
               button {
-                background-color: $asparagus;
-                width: 30%;
-                border: none;
-                border-radius: 100px;
+                background-color: transparent;
+                padding: .2rem;
+                font-size: 1.3rem;
+                &:hover {
+                  color: lighten($color: $oxford-blue, $amount: 20);
+                }
               }
             }
           }

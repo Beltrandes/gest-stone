@@ -25,4 +25,7 @@ $theme-colors: (
 
 $body-bg: $seasalt;
 
+$btn-close-color: white;
+$btn-close-opacity: .9;
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

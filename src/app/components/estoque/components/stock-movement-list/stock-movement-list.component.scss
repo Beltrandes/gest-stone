@@ -1,0 +1,31 @@
+@import "../../../../../assets/styles/colors.scss";
+
+.accordion {
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.15rem rgba(0, 54, 134, 0.5);
+  .accordion-item {
+    .accordion-header {
+      .accordion-button {
+        &:not(.collapsed) {
+          background-color:lighten($color: $oxford-blue, $amount: 70)
+        }
+      }
+    }
+  }
+}
+.table {
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
+  }
+  tbody {
+    tr {
+      th,
+      td {
+        text-align: center;
+      }
+    }
+  }
+}

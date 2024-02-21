@@ -8,4 +8,5 @@ export interface StockEntry {
   previousQuantity: number;
   addedQuantity: number;
   supplier: string;
+  movementDate: Date
 }

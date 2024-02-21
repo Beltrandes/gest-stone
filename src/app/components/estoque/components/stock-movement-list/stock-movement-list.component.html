@@ -1,61 +1,102 @@
-<div class="container p-0">
-  <div class="card w-100 mb-4">
-    <div class="card-body">
-      <h4 class="card-title">
+<div class="accordion shadow rounded" id="movementsAccordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button text-danger fs-4 fw-semibold d-flex gap-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseOne"
+        aria-expanded="true"
+        aria-controls="collapseOne"
+      >
         Saídas
-        <i class="bi bi-box-arrow-up-right"></i>
-      </h4>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Funcionário</th>
-            <th scope="col">Item</th>
-            <th scope="col">Qtde. inicial</th>
-            <th scope="col">Qtde. retirada</th>
-            <th scope="col">Estoque</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (stockOut of stockOuts; track stockOut.id) {
-          <tr>
-            <th scope="row">{{ stockOut.employee.name }}</th>
-            <td>{{ stockOut.stockItem.name }} ({{stockOut.stockItem.details}})</td>
-            <td>{{ stockOut.previousQuantity }}</td>
-            <td>{{ stockOut.withdrawnQuantity }}</td>
-            <td>{{stockOut.stock.name}}</td>
-          </tr>
-          }
-        </tbody>
-      </table>
+        <i class="bi bi-arrow-up-right-square-fill"></i>
+      </button>
+    </h2>
+    <div
+      id="collapseOne"
+      class="accordion-collapse collapse show"
+      data-bs-parent="#movementsAccordion"
+    >
+      <div class="accordion-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Funcionário</th>
+              <th scope="col">Item</th>
+              <th scope="col">Qtde. inicial</th>
+              <th scope="col">Qtde. retirada</th>
+              <th scope="col">Estoque</th>
+              <th scope="col">Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (stockOut of stockOuts; track stockOut.id) {
+            <tr>
+              <th scope="row">{{ stockOut.employee.name }}</th>
+              <td>
+                {{ stockOut.stockItem.name }} ({{ stockOut.stockItem.details }})
+              </td>
+              <td>{{ stockOut.previousQuantity }}</td>
+              <td>{{ stockOut.withdrawnQuantity }}</td>
+              <td>{{ stockOut.stock.name }}</td>
+              <td>{{ stockOut.movementDate | date : "dd/MM/yyyy h:mm" }}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <div class="card w-100 mb-4">
-    <div class="card-body">
-      <h4 class="card-title">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed text-success fs-4 fw-semibold d-flex gap-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseTwo"
+        aria-expanded="false"
+        aria-controls="collapseTwo"
+      >
         Entradas
-        <i class="bi bi-box-arrow-in-up-right"></i>
-
-      </h4>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Qtde. inicial</th>
-            <th scope="col">Qtde. adicionada</th>
-            <th scope="col">Estoque</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (stockEntry of stockEntries; track stockEntry.id) {
-          <tr>
-            <th scope="row">{{ stockEntry.stockItem.name }} ({{stockEntry.stockItem.details}})</th>
-            <td>{{ stockEntry.previousQuantity }}</td>
-            <td>{{ stockEntry.addedQuantity }}</td>
-            <td>{{stockEntry.stock.name}}</td>
-          </tr>
-          }
-        </tbody>
-      </table>
+        <i class="bi bi-arrow-down-left-square-fill"></i>
+      </button>
+    </h2>
+    <div
+      id="collapseTwo"
+      class="accordion-collapse collapse"
+      data-bs-parent="#movementsAccordion"
+    >
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Qtde. inicial</th>
+              <th scope="col">Qtde. adicionada</th>
+              <th scope="col">Estoque</th>
+              <th scope="col">Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (stockEntry of stockEntries; track stockEntry.id) {
+            <tr>
+              <th scope="row">
+                {{ stockEntry.stockItem.name }} ({{
+                  stockEntry.stockItem.details
+                }})
+              </th>
+              <td>{{ stockEntry.previousQuantity }}</td>
+              <td>{{ stockEntry.addedQuantity }}</td>
+              <td>{{ stockEntry.stock.name }}</td>
+              <td>
+                {{ stockEntry.movementDate | date : "dd/MM/yyyy h:mm" }}
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

@@ -12,7 +12,13 @@ import { StockMovementListComponent } from './components/stock-movement-list/sto
   styleUrl: './estoque.component.scss'
 })
 export class EstoqueComponent {
+
+
   listViewType: string = 'stocks'
+  isFormOpened: boolean = false
+  isStockFormOpened: boolean = false
+  isStockItemFormOpened: boolean = false
+  formStockName: string = ''
   changeViewType() {
     if (this.listViewType === 'stocks') {
       this.listViewType = 'movements'
@@ -21,5 +27,23 @@ export class EstoqueComponent {
     }
 
     console.log(this.listViewType)
+  }
+
+  onOpenForm(formName: string) {
+    this.isFormOpened = true
+    this.isStockFormOpened = true
+    if (this.isStockItemFormOpened === true) this.isStockItemFormOpened = false
+  }
+
+  closeForm() {
+    this.isFormOpened = false
+    this.isStockFormOpened = false
+  }
+
+  onOpenStockItemForm(stockName: string) {
+    this.formStockName = stockName
+    this.isFormOpened = true
+    this.isStockItemFormOpened = true
+    if (this.isStockFormOpened === true) this.isStockFormOpened = false
   }
 }

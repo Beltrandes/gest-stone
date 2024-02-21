@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'list-control',
@@ -11,4 +11,13 @@ export class ListControlComponent {
   @Input() title: string = ''
 
   @Input() iconText: string = ''
+
+  @Input() btnText: string = ''
+
+  @Output() open = new EventEmitter(false)
+
+
+  openForm(formToOpen: string) {
+    this.open.emit(formToOpen)
+  }
 }

@@ -6,12 +6,12 @@ import { StockOut } from "../../components/estoque/models/StockOut";
 
 var stocks: Stock[] = [
   {id: '1', name: 'Produção', stockEntries: [], stockOuts: [], stockItems: []},
-  {id: '2', name: 'Instalaçao', stockEntries: [], stockOuts: [], stockItems: []},
+  {id: '2', name: 'Instalação', stockEntries: [], stockOuts: [], stockItems: []},
 ]
 
 const stockItems: StockItem[] = [
   {id: '1', name: 'Disco de Maquita', details: 'Porcelanato', minQuantity: 2, quantity: 9, stock: stocks[0]},
-  {id: '2', name: 'Massa Plástica', details: 'Branca', minQuantity: 5, quantity: 4, stock: stocks[0]},
+  {id: '2', name: 'Massa Plástica', details: 'Branca', minQuantity: 5, quantity: 0, stock: stocks[0]},
   {id: '3', name: 'Massa Plástica', details: 'Preta', minQuantity: 5, quantity: 9, stock: stocks[0]},
   {id: '4', name: 'PU 40', details: 'Branco', minQuantity: 4, quantity: 6, stock: stocks[1]},
   {id: '5', name: 'Serra Copo', details: '35mm', minQuantity: 2, quantity: 3, stock: stocks[1]},
@@ -19,8 +19,8 @@ const stockItems: StockItem[] = [
 ]
 
 const stockEntries: StockEntry[] = [
-  {id: '1', stock: stocks[0], stockItem: stockItems[1], previousQuantity: stockItems[1].quantity, addedQuantity: 3, supplier: 'Melo'},
-  {id: '2', stock: stocks[1], stockItem: stockItems[0], previousQuantity: stockItems[0].quantity, addedQuantity: 5, supplier: 'Gambia'}
+  {id: '1', stock: stocks[0], stockItem: stockItems[1], previousQuantity: stockItems[1].quantity, addedQuantity: 3, supplier: 'Melo', movementDate: new Date()},
+  {id: '2', stock: stocks[1], stockItem: stockItems[0], previousQuantity: stockItems[0].quantity, addedQuantity: 5, supplier: 'Gambia', movementDate: new Date()}
 ]
 
 const employees: Employee[] = [
