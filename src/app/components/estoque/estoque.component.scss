@@ -20,3 +20,26 @@
     }
   }
 }
+.toast-container {
+  #successToast {
+    .toast-body {
+      background-color: lighten($color: $oxford-blue, $amount: 80);
+    }
+
+    .toast-header {
+      display: flex;
+      justify-content: space-between;
+      background-color: lighten($color: $oxford-blue, $amount: 40);
+    }
+  }
+  #errorToast {
+    .toast-body {
+      background-color: lighten($color: red, $amount: 60);
+    }
+    .toast-header {
+      display: flex;
+      justify-content: space-between;
+      background-color: lighten($color: red, $amount: 10);
+    }
+  }
+}

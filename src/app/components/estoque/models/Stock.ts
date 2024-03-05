@@ -5,7 +5,7 @@ import { StockOut } from "./StockOut";
 export interface Stock {
   id: string;
   name: string;
-  stockEntries: StockEntry[]
-  stockOuts: StockOut[]
-  stockItems: StockItem[]
+  stockItems: StockItem[];
+  stockEntries: StockEntry[];
+  stockOuts: StockOut[];
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Stock } from '../../models/Stock';
 import { stocks } from '../../../../shared/mocks/StockMock';
 import { JsonPipe, NgClass } from '@angular/common';
@@ -14,7 +14,7 @@ export class StockListComponent implements OnInit {
 
 
   @Output() openForm = new EventEmitter(false)
-  stocks: Stock[] = stocks
+  @Input() stocks: Stock[] = []
 
   isQuantityInputOpened: boolean = false
   stockItemId!: string

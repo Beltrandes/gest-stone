@@ -1,0 +1,12 @@
+@import "../../../../../assets/styles/colors.scss";
+
+.card {
+  background-color: lighten($oxford-blue, 15%);
+  .card-body {
+    .card-title {
+      button {
+        color: white;
+      }
+    }
+  }
+}

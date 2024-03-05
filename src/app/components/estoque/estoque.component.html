@@ -9,30 +9,7 @@
   </div>
   <div class="content container p-0">
     @if (isFormOpened && isStockFormOpened) {
-    <div class="card mb-4">
-      <div class="card-body">
-        <h5 class="card-title text-white d-flex justify-content-between mb-4">
-          Crie um estoque
-          <button
-            (click)="closeForm()"
-            type="button"
-            class="btn btn-close"
-          ></button>
-        </h5>
-        <form>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="stockInput" />
-            <label for="stockInput">Nome</label>
-          </div>
-          <button
-            class="btn btn-primary d-flex justify-content-center gap-2 align-items-center"
-          >
-            <i class="bi bi-floppy"></i>
-            Salvar
-          </button>
-        </form>
-      </div>
-    </div>
+    <stock-form (close)="closeForm()" (save)="onSaveStock($event)"></stock-form>
 
     } @if (isFormOpened && isStockItemFormOpened) {
     <div class="card mb-4">
@@ -115,9 +92,32 @@
       </button>
     </div>
     } @if (listViewType === 'stocks') {
-    <stock-list (openForm)="onOpenStockItemForm($event)"></stock-list>
+    <div *ngIf="stocks$ | async as stocks">
+      <stock-list [stocks]="stocks" (openForm)="onOpenStockItemForm($event)"></stock-list>
+    </div>
+
     } @if (listViewType === 'movements') {
     <stock-movement-list></stock-movement-list>
     }
+  </div>
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header  text-white fw-semibold">
+      Mensagem do sistema
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body fw-semibold">
+      {{toastBodyText}}
+    </div>
+  </div>
+  <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header  text-white fw-semibold">
+      Mensagem do sistema
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body fw-semibold">
+      {{toastBodyText}}
+    </div>
   </div>
 </div>
