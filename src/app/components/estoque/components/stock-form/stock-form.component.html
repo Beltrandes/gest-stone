@@ -20,7 +20,7 @@
         <i class="bi bi-floppy"></i>
         Salvar
       </button>
-      <nav class="navbar mt-4 bg-body-tertiary rounded">
+      <nav class="navbar mt-4 mb-4 bg-body-tertiary rounded">
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">Itens</span>
           <button (click)="addNewStockItem()" class="btn fs-6 d-flex justify-content-center gap-2 align-items-center add-item-btn">
@@ -29,47 +29,48 @@
           </button>
         </div>
       </nav>
-      <table
-        style="width: 100%"
+      <div
+        class="pb-3 pt-3 d-flex align-items-center border-bottom"
         formArrayName="stockItems"
-        *ngFor="let lesson of getStockItemsFormArray(); let i = index"
+        *ngFor="let stockItem of getStockItemsFormArray(); let i = index"
       >
-        <tr [formGroupName]="i">
-          <td>
-            <div class="form-floating mb-3">
+        <form class="row d-flex" [formGroupName]="i">
+          <h4 class=" fs-5 text-white">Item #{{i + 1}}</h4>
+          <div class="col-4 ">
+            <div class="form-floating">
               <input type="text" class="form-control" id="stockItemName" formControlName="name" />
               <label for="stockItemName">Nome</label>
             </div>
 
-          </td>
-          <td>
-            <div class="form-floating mb-3">
+          </div>
+          <div class="col-3">
+            <div class="form-floating">
               <input type="text" class="form-control" id="stockItemDetails" formControlName="details" />
               <label for="stockItemDetails">Detalhes</label>
             </div>
 
-          </td>
-          <td>
-            <div class="form-floating mb-3">
+          </div>
+          <div class="col-2">
+            <div class="form-floating">
               <input type="number" class="form-control" id="stockItemQuantity" formControlName="quantity" />
-              <label for="stockItemQuantity">Quantidade</label>
+              <label for="stockItemQuantity">Qtde.</label>
             </div>
 
-          </td>
-          <td>
-            <div class="form-floating mb-3">
+          </div>
+          <div class="col-2">
+            <div class="form-floating">
               <input type="number" class="form-control" id="stockItemMinQuantity" formControlName="minQuantity" />
-              <label for="stockItemMinQuantity">Quantidade Mínima</label>
+              <label for="stockItemMinQuantity">Qtd. miníma</label>
             </div>
 
-          </td>
-          <td class="delete-btn">
+          </div>
+          <div class="delete-btn col-1  d-flex justify-content-center align-items-center">
             <button class="btn" (click)="removeStockItem(i)">
               <i class="bi bi-trash3-fill"></i>
             </button>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </form>
+      </div>
     </form>
   </div>
 </div>

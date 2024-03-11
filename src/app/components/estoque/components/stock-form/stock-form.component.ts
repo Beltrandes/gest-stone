@@ -4,11 +4,12 @@ import { Stock } from '../../models/Stock';
 import { StockItem } from '../../models/StockItem';
 import { Subscription } from 'rxjs';
 import { StockService } from '../../services/stock.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'stock-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgFor],
   templateUrl: './stock-form.component.html',
   styleUrl: './stock-form.component.scss'
 })

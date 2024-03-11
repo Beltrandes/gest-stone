@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Stock } from '../../models/Stock';
-import { stocks } from '../../../../shared/mocks/StockMock';
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'stock-list',
@@ -25,8 +24,8 @@ export class StockListComponent implements OnInit {
     this.stockItemId = ''
   }
 
-  openStockItemForm(stockName: string) {
-    this.openForm.emit(stockName)
+  openStockItemForm(stock: Stock) {
+    this.openForm.emit(stock)
   }
 
   openQuantityInput(stockItemId: string, stockId: string) {
