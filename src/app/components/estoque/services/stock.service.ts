@@ -4,16 +4,18 @@ import { Stock } from '../models/Stock';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs';
 import { StockEntry } from '../models/StockEntry';
-import { AddStockItem } from '../models/AddStockItem';
+import { AddStockItemQuantity } from '../models/AddStockItemQuantity';
 import { StockOut } from '../models/StockOut';
 import { WithdrawStockItem } from '../models/WithdrawStockItem';
 import { StockItem } from '../models/StockItem';
+import { Employee } from '../../employee/models/Employee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockService {
   stockUrl = `${environment.apiUrl}/stock`
+  employeeUrl = `${environment.apiUrl}/employee`
   constructor(private http: HttpClient) { }
 
   getAllStocks() {
@@ -64,8 +66,8 @@ export class StockService {
   getAllStockEntries() {
     return this.http.get<StockEntry[]>(`${this.stockUrl}/entry`).pipe(first())
   }
-  createStockEntry(data: AddStockItem) {
-    return this.http.post<AddStockItem>(`${this.stockUrl}/entry`, data).pipe(first())
+  createStockEntry(data: AddStockItemQuantity) {
+    return this.http.post<AddStockItemQuantity>(`${this.stockUrl}/entry`, data).pipe(first())
   }
 
   getAllStockOuts() {
@@ -75,5 +77,8 @@ export class StockService {
     return this.http.post<WithdrawStockItem>(`${this.stockUrl}/out`, data).pipe(first())
   }
 
-
+  // TODO: tirar esse método daqui
+  getAllEmployees() {
+    return this.http.get<Employee[]>(this.employeeUrl).pipe(first())
+  }
 }

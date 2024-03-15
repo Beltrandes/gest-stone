@@ -1,4 +1,4 @@
-export interface AddStockItem {
+export interface AddStockItemQuantity {
   stockItemId: string,
   quantity: number
 }

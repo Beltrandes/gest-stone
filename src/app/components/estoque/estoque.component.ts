@@ -9,16 +9,25 @@ import { StockService } from './services/stock.service';
 import { Observable } from 'rxjs';
 import { StockItemFormComponent } from './components/stock-item-form/stock-item-form.component';
 import { StockItem } from './models/StockItem';
+import { AddStockItemQuantity } from './models/AddStockItemQuantity';
+import { StockEntry } from './models/StockEntry';
+import { StockOut } from './models/StockOut';
+import { Employee } from '../employee/models/Employee';
+import { WithdrawStockItem } from './models/WithdrawStockItem';
 
 @Component({
   selector: 'app-estoque',
   standalone: true,
-  imports: [StockListComponent, ListControlComponent, StockFormComponent, StockItemFormComponent,NgClass, AsyncPipe, StockMovementListComponent, NgIf],
+  imports: [StockListComponent, ListControlComponent, StockFormComponent, StockItemFormComponent, NgClass, AsyncPipe, StockMovementListComponent, NgIf],
   templateUrl: './estoque.component.html',
   styleUrl: './estoque.component.scss'
 })
 export class EstoqueComponent implements OnInit {
+
   stocks$!: Observable<Stock[]>
+  stockEntries$!: Observable<StockEntry[]>
+  stockOuts$!: Observable<StockOut[]>
+  employees$!: Observable<Employee[]>
   listViewType: string = 'stocks'
   isFormOpened: boolean = false
   isStockFormOpened: boolean = false
@@ -26,14 +35,30 @@ export class EstoqueComponent implements OnInit {
   formStockName: string = ''
   stockToAdd!: Stock
   toastBodyText = ''
+  modalStockItem!: StockItem
+  modalStockName: string = ''
+  employeeSelect!: Employee
   constructor(private stockService: StockService, private renderer: Renderer2) {
 
   }
   ngOnInit(): void {
     this.loadStocks()
+    this.loadStockEntries()
+    this.loadStockOuts()
+    this.loadEmployees()
   }
+
   loadStocks() {
     this.stocks$ = this.stockService.getAllStocks()
+  }
+  loadStockEntries() {
+    this.stockEntries$ = this.stockService.getAllStockEntries()
+  }
+  loadStockOuts() {
+    this.stockOuts$ = this.stockService.getAllStockOuts()
+  }
+  loadEmployees() {
+    this.employees$ = this.stockService.getAllEmployees()
   }
   changeViewType() {
     if (this.listViewType === 'stocks') {
@@ -94,13 +119,44 @@ export class EstoqueComponent implements OnInit {
       toast = document.getElementById('successToast')
 
     } else {
-       toast = document.getElementById('errorToast')
+      toast = document.getElementById('errorToast')
     }
 
     this.renderer.addClass(toast, 'show')
     setInterval(() => {
       this.renderer.removeClass(toast, 'show')
-    }, 600)
+    }, 6000)
+  }
+  onSaveAddStockItem(addStockItemQuantity: AddStockItemQuantity) {
+    this.stockService.createStockEntry(addStockItemQuantity).subscribe({
+      next: () => this.openToast('Quantidade do item atualizada com sucesso!', true),
+      error: () => this.openToast('Erro ao atualizar quantidade do item!', false),
+      complete: () => {
+        this.loadStocks()
+      }
+    })
   }
 
+  openWithdrawModal(src: { stockItem: StockItem, stockName: string }) {
+    this.modalStockItem = src.stockItem
+    this.modalStockName = src.stockName
+    console.log('parent: ' + this.modalStockItem.name)
+    let withdrawModal: HTMLElement | null
+    withdrawModal = document.getElementById('withdrawModal')
+    this.renderer.addClass(withdrawModal, 'show')
+    this.renderer.setStyle(withdrawModal, 'display', 'block')
+  }
+
+  closeWithdrawModal() {
+    let withdrawModal: HTMLElement | null
+    withdrawModal = document.getElementById('withdrawModal')
+    this.renderer.removeClass(withdrawModal, 'show')
+    this.renderer.setStyle(withdrawModal, 'display', 'none')
+  }
+
+  withdrawStockItem(employeeId: string) {
+
+
+
+  }
 }

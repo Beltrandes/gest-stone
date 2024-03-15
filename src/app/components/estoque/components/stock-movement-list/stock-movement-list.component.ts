@@ -1,16 +1,21 @@
-import { Component, Input } from '@angular/core';
-import { stockEntries, stockOuts } from '../../../../shared/mocks/StockMock';
-import { DatePipe } from '@angular/common';
-import { trigger } from '@angular/animations';
+import { StockEntry } from './../../models/StockEntry';
+import { Component, Input, OnInit } from '@angular/core';
+import { DatePipe, NgIf } from '@angular/common';
+import { StockOut } from '../../models/StockOut';
 
 @Component({
   selector: 'stock-movement-list',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, NgIf],
   templateUrl: './stock-movement-list.component.html',
   styleUrl: './stock-movement-list.component.scss'
 })
-export class StockMovementListComponent {
- @Input() stockEntries = stockEntries
- @Input() stockOuts = stockOuts
+export class StockMovementListComponent implements OnInit {
+ @Input() stockEntries!: StockEntry[]
+ @Input() stockOuts!: StockOut[]
+
+ ngOnInit(): void {
+     console.log(this.stockEntries)
+ }
+
 }

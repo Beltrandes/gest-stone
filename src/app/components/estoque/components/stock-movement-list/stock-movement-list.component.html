@@ -35,7 +35,10 @@
             <tr>
               <th scope="row">{{ stockOut.employee.name }}</th>
               <td>
-                {{ stockOut.stockItem.name }} ({{ stockOut.stockItem.details }})
+                {{ stockOut.stockItem.name }}
+                @if(stockOut.stockItem.details) {
+                  ({{stockOut.stockItem.details}})
+                }
               </td>
               <td>{{ stockOut.previousQuantity }}</td>
               <td>{{ stockOut.withdrawnQuantity }}</td>
@@ -68,7 +71,7 @@
       data-bs-parent="#movementsAccordion"
     >
       <div class="accordion-body">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">Item</th>
@@ -82,9 +85,10 @@
             @for (stockEntry of stockEntries; track stockEntry.id) {
             <tr>
               <th scope="row">
-                {{ stockEntry.stockItem.name }} ({{
-                  stockEntry.stockItem.details
-                }})
+                {{ stockEntry.stockItem.name }}
+                @if(stockEntry.stockItem.details) {
+                  ({{stockEntry.stockItem.details}})
+                }
               </th>
               <td>{{ stockEntry.previousQuantity }}</td>
               <td>{{ stockEntry.addedQuantity }}</td>

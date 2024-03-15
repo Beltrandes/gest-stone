@@ -39,7 +39,12 @@
               }
             </th>
             <td>{{ item.name }}</td>
-            <td>{{ item.details }}</td>
+            @if (item.details) {
+              <td>{{ item.details }}</td>
+            } @else {
+              <td>-</td>
+            }
+
             <td
               class="actions align-items-center d-flex justify-content-center"
             >
@@ -51,15 +56,19 @@
               >
                 <i class="bi bi-plus-circle-fill"></i>
               </button>
-              <button class="btn">
-                <i class="bi bi-dash-circle-fill"></i>
+              <button
+               class="btn"
+               (click)="openWithdrawnModal(item, stock.name)"
+               >
+                <i class="bi bi-arrow-up-right-square-fill"></i>
               </button>
               <button class="btn"><i class="bi bi-pencil-fill"></i></button>
               <button class="btn"><i class="bi bi-trash3-fill"></i></button>
               } @if (isQuantityInputOpened && item.id === stockItemId && stockId
               === stock.id) {
-              <input type="number" class="form-control" id="quantityInput" />
-              <button class="btn">
+              <input type="number" class="form-control"  [(ngModel)]="quantity"/>
+              <button (click)="onAddStockItemQuantity()" class="btn">
+
                 <i class="bi bi-floppy-fill"></i>
               </button>
               <button
