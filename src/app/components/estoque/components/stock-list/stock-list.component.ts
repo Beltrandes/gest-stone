@@ -17,6 +17,7 @@ export class StockListComponent implements OnInit {
   @Output() openForm = new EventEmitter(false)
   @Output() add = new EventEmitter(false)
   @Output() withdraw = new EventEmitter(false)
+  @Output() delete = new EventEmitter(false)
   @Input() stocks: Stock[] = []
   quantity = 0;
   isQuantityInputOpened: boolean = false
@@ -28,8 +29,8 @@ export class StockListComponent implements OnInit {
     this.stockItemId = ''
   }
 
-  openStockItemForm(stock: Stock) {
-    this.openForm.emit(stock)
+  openStockItemForm(stock: Stock, stockItem: StockItem | null) {
+    this.openForm.emit({stock, stockItem})
   }
 
   openQuantityInput(stockItemId: string, stockId: string) {
@@ -57,4 +58,9 @@ export class StockListComponent implements OnInit {
     this.withdraw.emit({stockItem, stockName})
     console.log('child: ' + stockItem.name)
   }
+
+  onDeleteStockItem(stockItemId: string) {
+    this.delete.emit(stockItemId)
+  }
+
 }

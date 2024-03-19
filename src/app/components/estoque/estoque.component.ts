@@ -13,12 +13,12 @@ import { AddStockItemQuantity } from './models/AddStockItemQuantity';
 import { StockEntry } from './models/StockEntry';
 import { StockOut } from './models/StockOut';
 import { Employee } from '../employee/models/Employee';
-import { WithdrawStockItem } from './models/WithdrawStockItem';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-estoque',
   standalone: true,
-  imports: [StockListComponent, ListControlComponent, StockFormComponent, StockItemFormComponent, NgClass, AsyncPipe, StockMovementListComponent, NgIf],
+  imports: [StockListComponent, ListControlComponent, StockFormComponent, StockItemFormComponent, NgClass, AsyncPipe, StockMovementListComponent, NgIf, ReactiveFormsModule],
   templateUrl: './estoque.component.html',
   styleUrl: './estoque.component.scss'
 })
@@ -37,8 +37,11 @@ export class EstoqueComponent implements OnInit {
   toastBodyText = ''
   modalStockItem!: StockItem
   modalStockName: string = ''
-  employeeSelect!: Employee
-  constructor(private stockService: StockService, private renderer: Renderer2) {
+  modalEmployee!: Employee | null
+  withdrawModal!: FormGroup
+  formStockItem!: StockItem
+
+  constructor(private stockService: StockService, private renderer: Renderer2, private formBuilder: FormBuilder) {
 
   }
   ngOnInit(): void {
@@ -46,6 +49,11 @@ export class EstoqueComponent implements OnInit {
     this.loadStockEntries()
     this.loadStockOuts()
     this.loadEmployees()
+    this.withdrawModal = this.formBuilder.group({
+      employeeId: [''],
+      stockItemId: [''],
+      quantity: [0]
+    })
   }
 
   loadStocks() {
@@ -89,7 +97,7 @@ export class EstoqueComponent implements OnInit {
 
   onSaveStockItem(stockItem: StockItem) {
     stockItem.stock = this.stockToAdd
-    this.stockService.createStockItem(stockItem).subscribe({
+    this.stockService.saveStockItem(stockItem).subscribe({
       next: () => this.closeForm(),
       error: () => this.openToast('Erro ao salvar item de estoque!', false),
       complete: () => {
@@ -104,9 +112,15 @@ export class EstoqueComponent implements OnInit {
     this.isStockFormOpened = false
   }
 
-  onOpenStockItemForm(stock: Stock) {
-    this.formStockName = stock.name
-    this.stockToAdd = stock
+  onOpenStockItemForm(src: {stock: Stock, stockItem: StockItem | null}) {
+    if(this.isFormOpened === true && this.isStockFormOpened) {
+      this.closeForm()
+    }
+    this.formStockName = src.stock.name
+    this.stockToAdd = src.stock
+    if (src.stockItem != null) {
+      this.formStockItem = src.stockItem
+    }
     this.isFormOpened = true
     this.isStockItemFormOpened = true
     if (this.isStockFormOpened === true) this.isStockFormOpened = false
@@ -138,9 +152,10 @@ export class EstoqueComponent implements OnInit {
   }
 
   openWithdrawModal(src: { stockItem: StockItem, stockName: string }) {
-    this.modalStockItem = src.stockItem
+    this.withdrawModal.patchValue({
+      stockItemId: src.stockItem.id
+    })
     this.modalStockName = src.stockName
-    console.log('parent: ' + this.modalStockItem.name)
     let withdrawModal: HTMLElement | null
     withdrawModal = document.getElementById('withdrawModal')
     this.renderer.addClass(withdrawModal, 'show')
@@ -154,9 +169,30 @@ export class EstoqueComponent implements OnInit {
     this.renderer.setStyle(withdrawModal, 'display', 'none')
   }
 
-  withdrawStockItem(employeeId: string) {
+  withdrawStockItem() {
+    this.stockService.createStockOut(this.withdrawModal.value).subscribe({
+      next: () => this.openToast('Itens retirados com sucesso, movimento registrado', true),
+      error: (err) => {
+        console.log(err)
+        this.openToast('Erro ao retirar itens', false)
+      },
+      complete: () => {
+        this.closeWithdrawModal()
+        this.loadStocks()
+      }
+    })
 
 
+  }
 
+  onDeleteStockItem(stockItemId: string) {
+    this.stockService.deleteStockItem(stockItemId).subscribe({
+      next: () => this.openToast('Item excluido com sucesso', true),
+      error: () => this.openToast('Erro ao excluir item', false),
+      complete: () => {
+        this.closeForm()
+        this.loadStocks()
+      }
+    })
   }
 }

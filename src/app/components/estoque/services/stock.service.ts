@@ -48,15 +48,15 @@ export class StockService {
   }
   saveStockItem(record: Partial<StockItem>) {
     if (record.id) {
-      return this.updateStock(record)
+      return this.updateStockItem(record)
     }
     return this.createStockItem(record)
 
   }
-  createStockItem(record: Partial<StockItem>) {
+  private createStockItem(record: Partial<StockItem>) {
     return this.http.post<StockItem>(`${this.stockUrl}/item`, record).pipe(first())
   }
-  updateStockItem(record: Partial<StockItem>) {
+   private updateStockItem(record: Partial<StockItem>) {
     return this.http.put<StockItem>(`${this.stockUrl}/item/${record.id}`, record).pipe(first())
   }
   deleteStockItem(id: string) {

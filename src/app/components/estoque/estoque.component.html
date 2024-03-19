@@ -15,6 +15,7 @@
     <stock-item-form
       [formStockName]="formStockName"
       [stockToAdd]="stockToAdd"
+      [formStockItemToLoad]="formStockItem"
       (close)="closeForm()"
       (save)="onSaveStockItem($event)"
     ></stock-item-form>
@@ -49,6 +50,7 @@
         (openForm)="onOpenStockItemForm($event)"
         (add)="onSaveAddStockItem($event)"
         (withdraw)="openWithdrawModal($event)"
+        (delete)="onSaveAddStockItem($event)"
       ></stock-list>
     </div>
 
@@ -130,16 +132,18 @@
       <div class="modal-body">
         <form
           class="d-flex align-items-center justify-content-between mb-4 gap-4"
+          [formGroup]="withdrawModal"
         >
           <div *ngIf="employees$ | async as employees" class="form-floating w-75">
             <select
               class="form-select"
               id="employeeSelect"
               aria-label="Floating label disabled select example"
+              formControlName="employeeId"
             >
               <option selected>Selecionar funcionário</option>
               @for (employee of employees; track employee.id) {
-                <option value="employee.id">{{employee.name}}</option>
+                <option [value]="employee.id">{{employee.name}}</option>
               }
             </select>
             <label for="employeeSelect">Funcionário</label>
@@ -150,6 +154,7 @@
               class="form-control"
               id="quantity"
               placeholder="0"
+              formControlName="quantity"
             />
             <label for="quantity">Quantidade</label>
           </div>
@@ -163,7 +168,7 @@
           >
             Cancelar
           </button>
-          <button type="button" class="btn btn-primary">Retirar</button>
+          <button type="button" class="btn btn-primary" (click)="withdrawStockItem()">Retirar</button>
         </div>
       </div>
     </div>
